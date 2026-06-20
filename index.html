@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WBB Membership Directory Widget</title>
+<style>
+.directory-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+}
+.member-card {
+  text-align: center;
+  width: 220px;
+}
+.member-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+.member-name {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0;
+}
+.member-business {
+  color: #8B1E3F;
+  margin: 4px 0 0;
+}
+</style>
+</head>
+<body>
+
+<div id="member-directory" class="directory-grid"></div>
+
+<script>
+fetch('https://YOUR-VERCEL-PROJECT.vercel.app/api/directory')
+  .then(res => res.json())
+  .then(members => {
+    const container = document.getElementById('member-directory');
+    members.forEach(member => {
+      const card = document.createElement('div');
+      card.className = 'member-card';
+      card.innerHTML = `
+        <img class="member-photo" src="${member.photo}" alt="${member.name}">
+        <p class="member-name">${member.name}</p>
+        <p class="member-business">${member.business}</p>
+      `;
+      container.appendChild(card);
+    });
+  })
+  .catch(err => console.error('Directory load error:', err));
+</script>
+
+</body>
+</html>
