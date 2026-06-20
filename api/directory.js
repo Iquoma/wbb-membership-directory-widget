@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     const members = (data.content || [])
-      .filter(submission => submission.status !== 'INACTIVE')
+      .filter(submission => submission.status !== 'DELETED')
       .map(submission => {
         const answers = submission.answers || {};
         const getAnswer = (label) => {
