@@ -7,13 +7,7 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     const members = (data.content || [])
-      .filter(submission => {
-        const answers = submission.answers || {};
-        const statusAnswer = Object.values(answers).find(
-          a => a.name === 'status' || a.text === 'Status'
-        );
-        return statusAnswer ? statusAnswer.answer !== 'Inactive' : true;
-      })
+      .filter(submission => submission.status !== 'INACTIVE')
       .map(submission => {
         const answers = submission.answers || {};
         const getAnswer = (label) => {
