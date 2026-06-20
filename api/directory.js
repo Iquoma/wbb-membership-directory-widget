@@ -16,15 +16,15 @@ export default async function handler(req, res) {
       })
       .map(submission => {
         const answers = submission.answers || {};
-        const getAnswer = (fieldName) => {
-          const field = Object.values(answers).find(a => a.name === fieldName);
+        const getAnswer = (label) => {
+          const field = Object.values(answers).find(a => a.text === label);
           return field ? field.answer : '';
         };
 
         return {
-          name: getAnswer('name'),
-          business: getAnswer('business'),
-          photo: getAnswer('photo')
+          name: getAnswer('Business Owner Name'),
+          business: getAnswer('Business Name'),
+          photo: getAnswer('Headshot')
         };
       });
 
